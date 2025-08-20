@@ -3,27 +3,31 @@ title: "Ejercicio_2"
 output: html_document
 date: "2025-08-20"
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, echo=F, cache=T}
+library(tidyverse)
+library(knitr)
+library(rmarkdown)
+library(stargazer)
+library(kableExtra)
 ```
 
-## R Markdown
+# Análisis del reporte de Felicidad en el Mundo
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+## Origen
+Los datos que se utilizan en este Rmd son extraídos a partir del siguiente URL:
+```{r, echo=FALSE}
+print("https://raw.githubusercontent.com/PhilippeCodes/World-Happiness-Report-Data-Analysis/master/World%20Happiness%20Report.csv")
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+Primero, los datos son cargados en el objeto "world_happiness":
+```{r, cache=T}
+world_happiness <- read.csv("https://raw.githubusercontent.com/PhilippeCodes/World-Happiness-Report-Data-Analysis/master/World%20Happiness%20Report.csv")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+La tabla de estos datos se ve así: 
+```{r, echo=F, cache=T}
+kable(world_happiness) %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F) %>% 
+  scroll_box(width = "800px", height = "200px")
+```
+
+Al analizar la tabla, podríamos hacer cálculos como el promedio del Score de Felicidad de todos los países involucrados en este Ranking, el cual sería: **`r mean(world_happiness$Happiness.Score)`**
